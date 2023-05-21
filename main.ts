@@ -1,10 +1,17 @@
 import { Client, GatewayIntentBits, REST, Routes } from "discord.js";
 import { ENV } from "./env";
 
+const PING_COMMAND = "ping";
+const HELLO_COMMAND = "hello";
+
 const commands = [
     {
-        name: "ping",
+        name: PING_COMMAND,
         description: "Replies with Pong!",
+    },
+    {
+        name: HELLO_COMMAND,
+        description: "return itself",
     },
 ];
 
@@ -33,8 +40,12 @@ const main = async () => {
     client.on("interactionCreate", async (interaction) => {
         if (!interaction.isChatInputCommand()) return;
 
-        if (interaction.commandName === "ping") {
+        if (interaction.commandName === PING_COMMAND) {
             await interaction.reply("Pong!");
+        }
+
+        if (interaction.commandName === HELLO_COMMAND) {
+            await interaction.reply("hello " + interaction.user.username);
         }
     });
 
